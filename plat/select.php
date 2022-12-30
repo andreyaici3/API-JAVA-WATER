@@ -8,3 +8,5 @@ $data["result"] = [
     "nomorPolisi" => select("nomor_polisi", "")
 ];
 
+echo json_encode($data);
+
