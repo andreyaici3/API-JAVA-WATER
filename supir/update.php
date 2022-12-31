@@ -6,6 +6,7 @@
         $name = $_POST['name'];
         $email = $_POST['email'];
         $id_supir = $_POST['id_supir'];
+        $password = md5(sha1($_POST['password']));
 
         $date = date('Y-m-d h:i:s');
 
