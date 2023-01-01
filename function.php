@@ -20,6 +20,24 @@ function select($tabel, $kondisi){
     return $rows;
 }
 
+function select_con($field, $tabel, $kondisi){
+    global $koneksi;
+    
+    if ($kondisi != ''){
+        $strQuery = "SELECT $field FROM $tabel WHERE $kondisi";
+    } else {
+        $strQuery = "SELECT $field FROM $tabel";
+    }
+
+    $result = mysqli_query($koneksi, $strQuery);
+    $rows = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $rows[] = $row;
+    }
+
+    return $rows;
+}
+
 function insert($tabel, $stringData){
     global $koneksi;
 
