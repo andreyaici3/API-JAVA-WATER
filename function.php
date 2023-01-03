@@ -71,4 +71,31 @@ function select_sum($jenis, $id){
     return mysqli_fetch_assoc($result);
 }
 
+function report($start, $end){
+    global $koneksi;
+    $strQuery = "SELECT 
+                tanggal, 
+                nomor_polisi.nomor_polisi,
+                SUM(CASE WHEN jenis = 'pemasukan' THEN nominal ELSE 0 END) AS sum_pemasukan, 
+                SUM(CASE WHEN jenis = 'pengeluaran' THEN nominal ELSE 0 END) AS sum_pengeluaran,  
+                SUM(CASE WHEN jenis = 'pemasukan' THEN nominal ELSE 0 END) - SUM(CASE WHEN jenis = 'pengeluaran' THEN nominal ELSE 0 END) AS jml_bersih
+            FROM 
+                rekapan, nomor_polisi
+            WHERE 
+                rekapan.nomor_polisi_id = nomor_polisi.id_nopol AND
+                tanggal BETWEEN '$start' AND '$end'
+            GROUP BY
+                tanggal, nomor_polisi
+            ORDER BY
+                tanggal ASC";
+    $result = mysqli_query($koneksi, $strQuery);
+    $rows = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $rows[] = $row;
+    }
+
+    return $rows;
+
+}
+
 
