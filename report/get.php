@@ -1,6 +1,25 @@
 <?php
 
 include '../function.php';
+require '../vendor/autoload.php';
+
+use Dompdf\Dompdf as Dompdf;
+
+
+$dompdf = new Dompdf();
+$dompdf->loadHtml('hello world');
+
+// (Optional) Setup the paper size and orientation
+$dompdf->setPaper('A4', 'potrait');
+
+// Render the HTML as PDF
+$dompdf->render();
+
+// Output the generated PDF to Browser
+$dompdf->stream("dompdf_out.pdf", array("Attachment" => false));
+
+
+
 
 // if ($_POST){
 //     $start = $_POST['start'];
@@ -21,12 +40,12 @@ include '../function.php';
 
 // echo json_encode($data);
 
-$path = "../file/02.pdf";
-// 
-$myFile = fopen($path, "r");
+// $path = "../file/02.pdf";
+// // 
+// $myFile = fopen($path, "r");
 
-echo fread($myFile, filesize($path));
-fclose($myFile);
+// echo fread($myFile, filesize($path));
+// fclose($myFile);
 // 
 
 // $rootDir = ;
