@@ -2,10 +2,11 @@
 
 include 'koneksi.php';
 
-function select($tabel, $kondisi){
+function select($tabel, $kondisi)
+{
     global $koneksi;
-    
-    if ($kondisi != ''){
+
+    if ($kondisi != '') {
         $strQuery = "SELECT * FROM $tabel WHERE $kondisi";
     } else {
         $strQuery = "SELECT * FROM $tabel";
@@ -20,10 +21,11 @@ function select($tabel, $kondisi){
     return $rows;
 }
 
-function select_con($field, $tabel, $kondisi){
+function select_con($field, $tabel, $kondisi)
+{
     global $koneksi;
-    
-    if ($kondisi != ''){
+
+    if ($kondisi != '') {
         $strQuery = "SELECT $field FROM $tabel WHERE $kondisi";
     } else {
         $strQuery = "SELECT $field FROM $tabel";
@@ -38,7 +40,8 @@ function select_con($field, $tabel, $kondisi){
     return $rows;
 }
 
-function insert($tabel, $stringData){
+function insert($tabel, $stringData)
+{
     global $koneksi;
 
     $strQuery = "INSERT INTO $tabel VALUES ($stringData)";
@@ -47,7 +50,8 @@ function insert($tabel, $stringData){
     return true;
 }
 
-function update($tabel, $stringData, $kondisi){
+function update($tabel, $stringData, $kondisi)
+{
     global $koneksi;
 
     $strQuery = "UPDATE $tabel SET $stringData WHERE $kondisi";
@@ -56,7 +60,8 @@ function update($tabel, $stringData, $kondisi){
     return true;
 }
 
-function delete($tabel, $kondisi){
+function delete($tabel, $kondisi)
+{
     global $koneksi;
     $strQuery = "DELETE FROM $tabel WHERE $kondisi";
     mysqli_query($koneksi, $strQuery);
@@ -64,14 +69,16 @@ function delete($tabel, $kondisi){
     return true;
 }
 
-function select_sum($jenis, $id){
+function select_sum($jenis, $id)
+{
     global $koneksi;
     $strQuery = "SELECT SUM(nominal) AS jumlah FROM rekapan WHERE jenis = '$jenis' AND users_id = '$id'";
     $result = mysqli_query($koneksi, $strQuery);
     return mysqli_fetch_assoc($result);
 }
 
-function report($start, $end){
+function report($start, $end)
+{
     global $koneksi;
     $strQuery = "SELECT 
                 tanggal, 
@@ -95,7 +102,47 @@ function report($start, $end){
     }
 
     return $rows;
-
 }
 
 
+function hari($date){
+	$hari = date('D', strtotime($date));
+ 
+	switch($hari){
+		case 'Sun':
+			$hari_ini = "Minggu";
+		break;
+ 
+		case 'Mon':			
+			$hari_ini = "Senin";
+		break;
+ 
+		case 'Tue':
+			$hari_ini = "Selasa";
+		break;
+ 
+		case 'Wed':
+			$hari_ini = "Rabu";
+		break;
+ 
+		case 'Thu':
+			$hari_ini = "Kamis";
+		break;
+ 
+		case 'Fri':
+			$hari_ini = "Jumat";
+		break;
+ 
+		case 'Sat':
+			$hari_ini = "Sabtu";
+		break;
+		
+		default:
+			$hari_ini = "Tidak di ketahui";		
+		break;
+	}
+ 
+	return $hari_ini;
+ 
+}
+ 
