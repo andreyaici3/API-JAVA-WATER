@@ -7,7 +7,7 @@ require '../vendor/autoload.php';
 
 $postdata = http_build_query(
     array(
-        'tanggal' => $_GET["tanggal"]
+        'tanggal' => $_POST["tanggal"]
     )
 );
 
