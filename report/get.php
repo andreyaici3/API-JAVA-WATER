@@ -5,40 +5,23 @@ require '../vendor/autoload.php';
 
 @$jenis = $_GET["type"];
 
+$postdata = http_build_query(
+    array(
+        'tanggal' => $_GET["tanggal"]
+    )
+);
+
+$opts = array('http' =>
+    array(
+        'method'  => 'POST',
+        'header'  => 'Content-Type: application/x-www-form-urlencoded',
+        'content' => $postdata
+    )
+);
+
+$context  = stream_context_create($opts);
 
 /* Rekapan perbulan dulu */
-if ($jenis == "month"){
-    $tg = "2022-12-01";
-    $month = date("m", strtotime($tg));
-    $year = date("Y", strtotime($tg));
-    $d=cal_days_in_month(CAL_GREGORIAN,$month,$year);
-
-    $nopol = select("nomor_polisi", "");
-    $report = report("2022-12-01", "2022-12-$d");
-    
-    for($i=1; $i<=$d; $i++){
-        $tgl[] = ($i<10) ? "$year-$month-" ."0". $i : "$year-$month-". $i;
-    }
-    /* Get All Days */
-    
-    
-    // var_dump($report);
-    $index = 0;
-    $arrayBaru = [];
-    foreach ($report as $key) {
-        $arrayBaru[$key["tanggal"]][] = $key;
-    }
-    
-
-
-/* Get All Days */
-
-
-    
-    
-} else {
-    $html = "aa";
-}
 
 
 
@@ -46,7 +29,7 @@ use Dompdf\Dompdf as Dompdf;
 
 
 $dompdf = new Dompdf();
-$dompdf->loadHtml(file_get_contents($URL_PATH_REPORT));
+$dompdf->loadHtml(file_get_contents($URL_PATH_REPORT, false, $context));
 
 // (Optional) Setup the paper size and orientation
 $dompdf->setPaper('F4', 'potrait');

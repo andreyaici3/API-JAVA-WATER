@@ -2,18 +2,18 @@
 
 include '../function.php';
 
+$tg = $_POST["tanggal"];
+$month = date("m", strtotime($tg));
+$year = date("Y", strtotime($tg));
+$d=cal_days_in_month(CAL_GREGORIAN,$month,$year);
+
 $nopol = select("nomor_polisi", "");
-$report = report("2022-12-01", "2022-12-02");
+$report = report("2022-$month-01", "2022-$month-$d");
+
 
 
 
 /* Get All Days */
-
-$month = date("m", strtotime("2022-12-5"));
-$year = date("Y", strtotime("2022-12-05"));
-
-$d=cal_days_in_month(CAL_GREGORIAN,$month,$year);
-
 for($i=1; $i<=$d; $i++){
     $tgl[] = ($i<10) ? "$year-$month-" ."0". $i : "$year-$month-". $i;
     
@@ -47,7 +47,7 @@ foreach ($report as $key) {
 
 <body>
         <center>
-        <h3>REKAPAN AKHIR BULAN NOVEMBER 2022</h3>
+        <h3>REKAPAN AKHIR BULAN <?= $month . " " .$year?> </h3>
         </center>
 
         <table border="1">
