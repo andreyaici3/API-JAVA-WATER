@@ -8,7 +8,8 @@ $year = date("Y", strtotime($tg));
 $d=cal_days_in_month(CAL_GREGORIAN,$month,$year);
 
 $nopol = select("nomor_polisi", "");
-$report = report("2022-$month-01", "2022-$month-$d");
+$report = report("$year-$month-01", "$year-$month-$d");
+
 
 
 
