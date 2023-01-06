@@ -3,7 +3,7 @@
 include '../function.php';
 
 if ($_POST){
-    $id_users = $_POST['id_supir'];
+    $tanggal = $_POST['tanggal'];
 
     $data["result"] = [
         "status" => 200,
