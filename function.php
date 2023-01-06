@@ -21,6 +21,7 @@ function select($tabel, $kondisi)
     return $rows;
 }
 
+
 function select_con($field, $tabel, $kondisi)
 {
     global $koneksi;
