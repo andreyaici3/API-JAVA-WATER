@@ -71,10 +71,10 @@ function delete($tabel, $kondisi)
     return true;
 }
 
-function select_sum($jenis, $id)
+function select_sum($jenis, $id, $tanggal)
 {
     global $koneksi;
-    $strQuery = "SELECT SUM(nominal) AS jumlah FROM rekapan WHERE jenis = '$jenis' AND users_id = '$id'";
+    $strQuery = "SELECT SUM(nominal) AS jumlah FROM rekapan WHERE jenis = '$jenis' AND users_id = '$id', AND tanggal='$tanggal'";
     $result = mysqli_query($koneksi, $strQuery);
     return mysqli_fetch_assoc($result);
 }
