@@ -78,6 +78,14 @@ function select_sum($jenis, $id)
     return mysqli_fetch_assoc($result);
 }
 
+function select_sum2($jenis, $tgl)
+{
+    global $koneksi;
+    $strQuery = "SELECT SUM(nominal) AS jumlah FROM rekapan WHERE jenis = '$jenis' AND tanggal = '$tgl'";
+    $result = mysqli_query($koneksi, $strQuery);
+    return mysqli_fetch_assoc($result);
+}
+
 function report($start, $end)
 {
     global $koneksi;
