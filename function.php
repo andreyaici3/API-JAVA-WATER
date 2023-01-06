@@ -2,6 +2,7 @@
 
 include 'koneksi.php';
 
+date_default_timezone_set('Asia/Jakarta');
 function select($tabel, $kondisi)
 {
     global $koneksi;
