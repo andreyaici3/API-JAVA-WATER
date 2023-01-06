@@ -2,52 +2,27 @@
 
 include '../function.php';
 
+// $tg = $_POST["tanggal"];
 
+$
 
-@$jenis = $_POST["jenis"];
-
-if ($jenis == "custom"){
-    $start = $_POST["start"];
-    $end = $_POST["end"];
-
-    $header = "REKAPAN DARI $start SAMPAI $end";
-
-    $report = report($start, $end);
-
-    $awalPecah = explode("-", $start);
-    $akhirPecah = explode("-", $end);
-    $tanggalAwal = end($awalPecah);
-    $tanggalAkhir = end($akhirPecah);
-
-
-    for($i=$tanggalAwal; $i<=$tanggalAkhir; $i++){
-        $tgl[] = ($i<10 && $i>1) ? $awalPecah[0] . "-" .$awalPecah[1] ."-0". $i : $awalPecah[0] . "-" . $awalPecah[1] . "-" . $i;
-        
-        
-    }
-
-
-} else {
-
-    $header = "REKAPAN AKHIR BULAN $month  $year";
-    $tg = $_POST["tanggal"];
-    $month = date("m", strtotime($tg));
-    $year = date("Y", strtotime($tg));
-    $d=cal_days_in_month(CAL_GREGORIAN,$month,$year);
-
-    
-    $report = report("$year-$month-01", "$year-$month-$d");
-
-    /* Get All Days */
-    for($i=1; $i<=$d; $i++){
-        $tgl[] = ($i<10) ? "$year-$month-" ."0". $i : "$year-$month-". $i;
-        
-    }
-}
+die;
+$month = date("m", strtotime($tg));
+$year = date("Y", strtotime($tg));
+$d=cal_days_in_month(CAL_GREGORIAN,$month,$year);
 
 $nopol = select("nomor_polisi", "");
+$report = report("$year-$month-01", "$year-$month-$d");
 
 
+
+
+
+/* Get All Days */
+for($i=1; $i<=$d; $i++){
+    $tgl[] = ($i<10) ? "$year-$month-" ."0". $i : "$year-$month-". $i;
+    
+}
 /* Get All Days */
 
 
@@ -77,7 +52,7 @@ foreach ($report as $key) {
 
 <body>
         <center>
-        <h3><?= $header ?></h3>
+        <h3>REKAPAN AKHIR BULAN <?= $month . " " .$year?> </h3>
         </center>
 
         <table border="1">

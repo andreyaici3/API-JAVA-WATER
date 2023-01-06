@@ -3,21 +3,52 @@
 include '../function.php';
 require '../vendor/autoload.php';
 
-@$jenis = $_GET["type"];
+@$jenis = $_GET["jenis"];
 
-$postdata = http_build_query(
-    array(
-        'tanggal' => $_GET["tanggal"]
-    )
-);
+if ($jenis == "custom"){
+    $start = $_GET["start"];
+    $end = $_GET["end"];
 
-$opts = array('http' =>
-    array(
-        'method'  => 'POST',
-        'header'  => 'Content-Type: application/x-www-form-urlencoded',
-        'content' => $postdata
-    )
-);
+    $postdata = http_build_query(
+        array(
+            'start' => $start,
+            'end' => $end,
+            'jenis' => $jenis
+        )
+    );
+    
+    $opts = array('http' =>
+        array(
+            'method'  => 'POST',
+            'header'  => 'Content-Type: application/x-www-form-urlencoded',
+            'content' => $postdata
+        )
+    );
+    
+
+    $header = "REKAPAN DARI $start SAMPAI $end";
+
+
+} else {
+
+    $postdata = http_build_query(
+        array(
+            'tanggal' => $_GET["tanggal"],
+            'jenis' => $jenis
+        )
+    );
+    
+    $opts = array('http' =>
+        array(
+            'method'  => 'POST',
+            'header'  => 'Content-Type: application/x-www-form-urlencoded',
+            'content' => $postdata
+        )
+    );
+    
+}
+
+
 
 $context  = stream_context_create($opts);
 
