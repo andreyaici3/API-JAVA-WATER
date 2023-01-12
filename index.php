@@ -53,7 +53,7 @@ h2{
   text-transform: uppercase;
 }
     </style>
-  <title>ANDREY ANDRIANSYAH</title>
+  <title>JAVA WATER</title>
 </head>
 <body>
   <use>
